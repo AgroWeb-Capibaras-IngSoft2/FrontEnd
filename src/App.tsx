@@ -1,15 +1,12 @@
 // src/App.tsx
-import React from 'react';
+import React from "react";
 
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-} from 'react-router-dom';
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
-import Catalog from './components/catalog';
-import Login from './components/loginservice';
-import Registro from './components/registrationservice';
+import Catalog from "./components/catalog";
+import Dashboard from "./components/dashboard/dashboard";
+import Login from "./components/loginservice";
+import Registro from "./components/registrationservice";
 
 function App() {
   return (
@@ -18,6 +15,7 @@ function App() {
         <Route path="/catalog" element={<Catalog />} />
         <Route path="/" element={<Login />} />
         <Route path="/signup" element={<Registro />} />
+        <Route path="/dashboard" element={<Dashboard />} />
         {/* otras rutas: */}
       </Routes>
     </Router>
