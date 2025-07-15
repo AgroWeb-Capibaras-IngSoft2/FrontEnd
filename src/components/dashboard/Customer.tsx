@@ -10,20 +10,18 @@ import {
 } from "recharts";
 
 const data = [
-  { name: "Algo", value: 60 },
-  { name: "Algo mas", value: 30 },
-  { name: "Otro", value: 7 },
-  { name: "Otro mas", value: 3 },
+  { name: "Comprador", value: 60 },
+  { name: "Vendedor", value: 40 },
 ];
 
-const COLORS = ["#17C964", "#006FEE", "#F5A524", "#F31260"];
+const COLORS = ["#17C964", "#006FEE"];
 
 export const Customer: React.FC = () => {
   return (
     <div className="border border-gray-200 rounded-xl shadow-sm overflow-hidden">
       {/* Card Header */}
       <div className="px-5 py-4 border-b border-gray-100">
-        <h4 className="text-lg font-semibold">Alguna estadistica</h4>
+        <h4 className="text-lg font-semibold">Tipo de usuario</h4>
       </div>
 
       {/* Card Body */}

@@ -14,7 +14,7 @@ export default function Dashboard() {
         <h1 className="text-2xl font-bold mb-6">Dashboard</h1>
 
         {/* Stats Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mb-6">
           <StatCard
             title="Ventas Totales"
             value="$12,345"
@@ -32,12 +32,6 @@ export default function Dashboard() {
             value="5,678"
             icon="lucide:users"
             change={3.7}
-          />
-          <StatCard
-            title="Ingresos"
-            value="$56.78"
-            icon="lucide:trending-up"
-            change={1.5}
           />
         </div>
 
