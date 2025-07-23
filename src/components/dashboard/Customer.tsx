@@ -39,6 +39,23 @@ export const Customer: React.FC = () => {
       .catch((error) => console.error("Error fetching or parsing:", error));
   }, []);
 
+  // Custom Tooltip to show % sign
+  const CustomTooltip = ({ active, payload, label }: { active?: boolean; payload?: any[]; label?: string }) => {
+    if (active && payload && payload.length) {
+      let value = payload[0].value;
+      if (typeof value === 'number') {
+        value = Number.isInteger(value) ? value : value.toFixed(4);
+      }
+      return (
+        <div className="bg-white p-2 rounded shadow text-sm border border-gray-200">
+          <span className="font-semibold">{payload[0].name}: </span>
+          <span>{value}%</span>
+        </div>
+      );
+    }
+    return null;
+  };
+
   return (
     <div className="border border-gray-200 rounded-xl shadow-sm overflow-hidden">
       {/* Card Header */}
@@ -66,7 +83,7 @@ export const Customer: React.FC = () => {
                 />
               ))}
             </Pie>
-            <Tooltip />
+            <Tooltip content={<CustomTooltip />} />
             <Legend />
           </PieChart>
         </ResponsiveContainer>

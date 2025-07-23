@@ -89,7 +89,7 @@ export const Recent: React.FC = () => {
                     </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
-                        {order.name}
+                        {order.product}
                       </div>
                     </div>
                   </div>

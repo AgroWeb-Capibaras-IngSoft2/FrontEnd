@@ -46,7 +46,7 @@ console.log(userType);
             Home
           </a>
           <a
-            href="#"
+            href="/catalog"
             className="text-green-600 font-medium"
             aria-current="page"
           >
