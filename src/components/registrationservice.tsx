@@ -4,7 +4,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import RegisImg from '/src/assets/Regis.jpg';
 import iconimg from '/src/assets/icon.png';
 import bcrypt from 'bcryptjs';
-import '../index.css'; // Asegura que el CSS global se importe
+import '../index.css';
 import { crearCarrito } from '../services/cartservices';
 
 const usersApiUrl = import.meta.env.VITE_API_USERS_URL;
@@ -65,9 +65,9 @@ const Registro = () => {
     });
   };
 
-  const handleSubmit = async (e:React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (formData.contrasena!== formData.repetirContrasena) {
+    if (formData.contrasena !== formData.repetirContrasena) {
       alert('Las contraseñas no coinciden.');
       return;
     }
@@ -76,56 +76,51 @@ const Registro = () => {
       return;
     }
 
-  try {
-    const response = await fetch(`${usersApiUrl}/users/register`, {
-      method: 'POST',
-      headers: {
-        'accept': 'application/json',
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({
-        firstName: formData.nombre,
-        middleName: formData.segundoNombre,
-        surName1: formData.apellido1,
-        surName2: formData.apellido2,
-        bornDate: formData.fechaNacimiento,
-        department: formData.departamento,
-        municipality: formData.municipio,
-        trail: formData.ruta,
-        email: formData.correo,
-        typeDocument: formData.tipoDocumento,
-        numberDocument: formData.numeroDocumento,
-        phoneNumber: formData.telefono,
-        hashPassword: formData.contrasena,
-        username: formData.nombreUsuario,
-        userType:formData.tipoUsuario
-      })
-    });
+    try {
+      const response = await fetch(`${usersApiUrl}/users/register`, {
+        method: 'POST',
+        headers: {
+          'accept': 'application/json',
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          firstName: formData.nombre,
+          middleName: formData.segundoNombre,
+          surName1: formData.apellido1,
+          surName2: formData.apellido2,
+          bornDate: formData.fechaNacimiento,
+          department: formData.departamento,
+          municipality: formData.municipio,
+          trail: formData.ruta,
+          email: formData.correo,
+          typeDocument: formData.tipoDocumento,
+          numberDocument: formData.numeroDocumento,
+          phoneNumber: formData.telefono,
+          hashPassword: formData.contrasena,
+          username: formData.nombreUsuario,
+          userType: formData.tipoUsuario
+        })
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      // Guardar tipo de usuario en localStorage
-      localStorage.setItem('userType', formData.tipoUsuario);
-      alert('¡Registro exitoso!');
-      try{
-        const res= await crearCarrito(formData.numeroDocumento,formData.tipoDocumento);
-        console.log("Create carrito response: ",res)
-      }catch(error){
-            console.error('Error obtieniendo carrito:' ,error);
-          }
-      
-
-      console.log('Respuesta del servidor:', data);
-      navigate('/');
-    } else {
-      const errorData = await response.json();
-      alert('Error en el registro: ' + (errorData.error || response.statusText));
+      if (response.ok) {
+        const data = await response.json();
+        localStorage.setItem('userType', formData.tipoUsuario);
+        alert('¡Registro exitoso!');
+        try {
+          const res = await crearCarrito(formData.numeroDocumento, formData.tipoDocumento);
+          console.log('Create carrito response: ', res);
+        } catch (error) {
+          console.error('Error obtieniendo carrito:', error);
+        }
+        console.log('Respuesta del servidor:', data);
+        navigate('/');
+      } else {
+        const errorData = await response.json();
+        alert('Error en el registro: ' + (errorData.error || response.statusText));
+      }
+    } catch (error: any) {
+      alert('Error de red: ' + error.message);
     }
-  } catch (error) {
-    alert('Error de red: ' + error.message);
-  }
-
-
   };
 
   const handleIrAlLogin = () => {
@@ -134,40 +129,41 @@ const Registro = () => {
 
   return (
     <div className="container-fluid p-0">
-      <div className="row align-items-stretch" style={{ minHeight: '100vh' }}>
-        <div className="col-md-6 d-flex flex-column align-items-center position-relative p-0">
+      <div className="row g-0 align-items-stretch min-vh-100">
+        {/* Columna de la imagen - oculta en móviles */}
+        <div className="col-lg-6 d-none d-lg-flex p-0">
           <img
             src={RegisImg}
             alt="Granja"
-            className="img-cover border rounded shadow-sm h-100 w-100"
-            style={{ objectFit: 'cover', borderRadius: '0 0 0 1.5rem' }}
+            className="img-fluid h-100 w-100 object-fit-cover"
+            style={{ borderRadius: '0 0 0 1.5rem' }}
           />
         </div>
-        <div className="col-md-6 d-flex align-items-center justify-content-center bg-light" style={{ background: 'rgba(255,255,255,0.95)', borderRadius: '0 1.5rem 1.5rem 0' }}>
+        {/* Columna del formulario */}
+        <div className="col-lg-6 d-flex align-items-center justify-content-center bg-light p-3 p-lg-5">
           <div
-            className="card shadow-lg w-100 border-0"
+            className="card shadow-lg w-100 border-0 my-3 my-lg-0"
             style={{
               maxWidth: '750px',
               borderRadius: '1.5rem',
               background: 'rgba(255,255,255,0.85)',
               boxShadow: '0 8px 32px 0 rgba(31, 38, 135, 0.18)',
               backdropFilter: 'blur(8px)',
-              WebkitBackdropFilter: 'blur(8px)',
               border: '1px solid rgba(255,255,255,0.3)'
             }}
           >
-            <div className="card-body p-5">
-              <div className="fw-bold mb-4 text-center text-success d-flex justify-content-center align-items-center" style={{ letterSpacing: '1px', fontSize: '2.5rem' }}>
+            <div className="card-body p-3 p-md-5">
+              <div className="fw-bold mb-4 text-center text-success d-flex justify-content-center align-items-center flex-wrap" style={{ fontSize: 'clamp(1.5rem, 4vw, 2.5rem)' }}>
                 Crea una cuenta en
-                <span style={{ display: 'inline-flex', alignItems: 'center', marginLeft: '8px' }}>
+                <span className="d-inline-flex align-items-center ms-2">
                   AgroWeb
-                  <img src={iconimg} alt="AgroWeb icon" style={{ width: '35px', height: '35px', marginLeft: '8px', verticalAlign: 'middle' }} />
+                  <img src={iconimg} alt="AgroWeb icon" style={{ width: 'clamp(25px, 3vw, 35px)', marginLeft: '8px' }} />
                 </span>
               </div>
               <form onSubmit={handleSubmit} autoComplete="off">
-                <div className="row g-3">
+                <div className="row g-2 g-md-3">
                   {campos.map(({ label, name, type = 'text', inputMode, pattern }) => (
-                    <div className="col-12 col-md-6" key={name}>
+                    <div className="col-12 col-sm-6" key={name}>
                       <label className="form-label fw-semibold text-secondary small mb-1">{label}</label>
                       {name === 'departamento' ? (
                         <select
@@ -183,7 +179,7 @@ const Registro = () => {
                           ))}
                         </select>
                       ) : name === 'contrasena' ? (
-                        <div className="input-group">
+                        <div className="position-relative">
                           <input
                             type={showPassword ? 'text' : 'password'}
                             className="form-control rounded-pill shadow-sm px-3 py-2"
@@ -195,16 +191,16 @@ const Registro = () => {
                             {...(pattern ? { pattern } : {})}
                           />
                           <span
-                            className="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-300 bg-transparent border-none p-0 focus:outline-none focus:ring-0 hover:text-gray-700 dark:hover:text-white"
-                            style={{ cursor: 'pointer', marginLeft: '-40px', zIndex: 10 }}
+                            className="position-absolute top-50 end-0 translate-middle-y me-3"
+                            style={{ cursor: 'pointer', zIndex: 10 }}
                             onClick={() => setShowPassword((prev) => !prev)}
                             tabIndex={0}
                           >
-                            {showPassword ? '🙈' : '👁️'}
+                            {showPassword ? '🙈' : '👁'}
                           </span>
                         </div>
                       ) : name === 'repetirContrasena' ? (
-                        <div className="input-group">
+                        <div className="position-relative">
                           <input
                             type={showRepeatPassword ? 'text' : 'password'}
                             className="form-control rounded-pill shadow-sm px-3 py-2"
@@ -216,12 +212,12 @@ const Registro = () => {
                             {...(pattern ? { pattern } : {})}
                           />
                           <span
-                            className="absolute inset-y-0 right-3 flex items-center text-gray-500 dark:text-gray-300 bg-transparent border-none p-0 focus:outline-none focus:ring-0 hover:text-gray-700 dark:hover:text-white"
-                            style={{ cursor: 'pointer', marginLeft: '-40px', zIndex: 10 }}
+                            className="position-absolute top-50 end-0 translate-middle-y me-3"
+                            style={{ cursor: 'pointer', zIndex: 10 }}
                             onClick={() => setShowRepeatPassword((prev) => !prev)}
                             tabIndex={0}
                           >
-                            {showRepeatPassword ? '🙈' : '👁️'}
+                            {showRepeatPassword ? '🙈' : '👁'}
                           </span>
                         </div>
                       ) : (
@@ -238,7 +234,7 @@ const Registro = () => {
                       )}
                     </div>
                   ))}
-                  <div className="col-12 col-md-6">
+                  <div className="col-12 col-sm-6">
                     <label className="form-label fw-semibold text-secondary small mb-1">Tipo de documento</label>
                     <select
                       className="form-select rounded-pill shadow-sm px-3 py-2"
@@ -253,7 +249,7 @@ const Registro = () => {
                       <option value="Cedula extranjera">Cedula Extranjera</option>
                     </select>
                   </div>
-                  <div className="col-12 col-md-6">
+                  <div className="col-12 col-sm-6">
                     <label className="form-label fw-semibold text-secondary small mb-1">Número de documento</label>
                     <input
                       type="text"
@@ -264,7 +260,7 @@ const Registro = () => {
                       required
                     />
                   </div>
-                  <div className="col-12 col-md-6">
+                  <div className="col-12 col-sm-6">
                     <label className="form-label fw-semibold text-secondary small mb-1">Tipo de Usuario</label>
                     <select
                       className="form-select rounded-pill shadow-sm px-3 py-2"
@@ -274,8 +270,8 @@ const Registro = () => {
                       required
                     >
                       <option value="">Seleccione...</option>
-                      <option value="Comprador">Comprador</option>
-                      <option value="Vendedor">Vendedor</option>
+                      <option value="buyer">Comprador</option>
+                      <option value="seller">Vendedor</option>
                     </select>
                   </div>
                   <div className="col-12">
@@ -293,11 +289,11 @@ const Registro = () => {
                       </label>
                     </div>
                   </div>
-                  <div className="col-12 d-grid gap-2 mt-2">
-                    <button type="submit" className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition">
+                  <div className="col-12 d-grid gap-2 mt-3">
+                    <button type="submit" className="btn btn-success btn-lg py-3">
                       Registrarme
                     </button>
-                    <button type="button" className="w-full bg-green-600 text-white py-3 rounded-lg hover:bg-green-700 transition" onClick={handleIrAlLogin}>
+                    <button type="button" className="btn btn-outline-success btn-lg py-3" onClick={handleIrAlLogin}>
                       Ya tengo cuenta
                     </button>
                   </div>
@@ -310,4 +306,4 @@ const Registro = () => {
     </div>
   );
 }
-export default Registro
+export default Registro;
