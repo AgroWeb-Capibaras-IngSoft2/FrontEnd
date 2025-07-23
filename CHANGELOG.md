@@ -1,5 +1,6 @@
 # CHANGELOG
 
+
 ## [1.2.0] - 2025-07-23
 ### Added
 - **Sistema completo de carrito de compras**: Integración completa con el microservicio de carrito, permitiendo crear carrito, añadir productos, modificar cantidades y eliminar productos.
