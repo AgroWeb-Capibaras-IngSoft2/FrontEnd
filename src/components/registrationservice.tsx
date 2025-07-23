@@ -98,7 +98,7 @@ const Registro = () => {
         phoneNumber: formData.telefono,
         hashPassword: formData.contrasena,
         username: formData.nombreUsuario,
-        userType:formData.tipoUsuario
+        userType: formData.tipoUsuario
       })
     });
 
@@ -106,6 +106,8 @@ const Registro = () => {
       const data = await response.json();
       // Guardar tipo de usuario en localStorage
       localStorage.setItem('userType', formData.tipoUsuario);
+      console.log(formData.tipoUsuario )
+      console.log("que putas")
       alert('¡Registro exitoso!');
       try{
         const res= await crearCarrito(formData.numeroDocumento,formData.tipoDocumento);
@@ -274,8 +276,8 @@ const Registro = () => {
                       required
                     >
                       <option value="">Seleccione...</option>
-                      <option value="Comprador">Comprador</option>
-                      <option value="Vendedor">Vendedor</option>
+                      <option value="buyer">Comprador</option>
+                      <option value="seller">Vendedor</option>
                     </select>
                   </div>
                   <div className="col-12">

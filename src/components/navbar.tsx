@@ -13,6 +13,8 @@ const Navbar: React.FC<NavbarProps> = ({ userName }) => {
   const navigate = useNavigate();
   const [menuOpen, setMenuOpen] = React.useState(false);
 const userType = typeof window !== 'undefined' ? localStorage.getItem('userType') : null;
+console.log(userType);
+
 
   // Cierra el menú si se hace click fuera
   React.useEffect(() => {
@@ -90,7 +92,7 @@ const userType = typeof window !== 'undefined' ? localStorage.getItem('userType'
         id="user-dropdown-menu"
         className="absolute left-1/2 -translate-x-1/2 top-10 mt-2 w-52 bg-white border border-gray-100 rounded-2xl shadow-2xl z-50 p-2"
       >
-        {userType === 'Vendedor' && (
+        {userType === 'seller' && (
           <>
             <button
               className="flex items-center gap-2 w-full text-left px-4 py-2 text-base font-medium text-green-800 bg-gradient-to-r from-green-100 to-green-50 rounded-xl shadow-sm hover:from-green-200 hover:to-green-100 hover:shadow-md transition-all duration-200 mb-2"
