@@ -38,6 +38,7 @@ export default function Login() {
           const userData = await userResp.json();
           if (userResp.ok && userData.user && userData.user.username) {
             localStorage.setItem('userName', userData.user.username);
+            localStorage.setItem('userType', userData.user.userType);
           } else if (userData.user && userData.user.name) {
             localStorage.setItem('userName', userData.user.name);
           } else {
@@ -49,6 +50,7 @@ export default function Login() {
             console.log('doctype:',loginData.user.doctype);
             const carritoId= await getCarritoIdByUser(loginData.user.userdocument,loginData.user.doctype);
             localStorage.setItem('carritoId',carritoId);
+            localStorage.setItem('userDocument',loginData.user.userdocument);
           }catch(error){
             console.error('Error obtieniendo carrito:' ,error);
           }
