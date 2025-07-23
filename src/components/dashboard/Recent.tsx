@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 import { Icon } from "@iconify/react";
-
+/*
 const orders = [
   { id: 1, product: "Papas", total: 65320, status: "Activo" },
   { id: 2, product: "Fresas", total: 32000, status: "Inactivo" },
@@ -9,9 +9,32 @@ const orders = [
   { id: 4, product: "Brocoli", total: 56000, status: "Activo" },
   { id: 5, product: "Kiwi", total: 23750, status: "Activo" },
 ];
+*/
 
+const estadisticasApiUrl = import.meta.env.VITE_API_ESTADISTICAS_URL
 export const Recent: React.FC = () => {
   // Función para obtener el color según el estado
+
+  const [apiData, setApiData] = useState([]);
+  useEffect(() => {
+    fetch(`${estadisticasApiUrl}/products`)
+      .then((response) => response.json())
+      .then((data) => {
+        // data is an array of products
+        const parsedData = data.map((item: any) => ({
+          id: item.productId,
+          product: item.name,
+          total: item.price,
+          status: item.isActive ? "Activo" : "Inactivo",
+        }));
+        setApiData(parsedData);
+      })
+      .catch((error) => console.error("Error fetching or parsing:", error));
+  }, []);
+
+  const orders = apiData;
+  console.log("Orders data:", orders);
+
   const getStatusColor = (status: string) => {
     switch (status) {
       case "Activo":
@@ -66,7 +89,7 @@ export const Recent: React.FC = () => {
                     </div>
                     <div className="ml-4">
                       <div className="text-sm font-medium text-gray-900">
-                        {order.product}
+                        {order.name}
                       </div>
                     </div>
                   </div>
